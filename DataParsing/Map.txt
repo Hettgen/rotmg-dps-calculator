@@ -1,0 +1,6 @@
+1 - Sword
+2 - Dagger
+3 - Bow
+4 - Tome
+5 - Shield
+6 - 
