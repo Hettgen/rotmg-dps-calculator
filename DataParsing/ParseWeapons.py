@@ -22,30 +22,60 @@ def getStats(obj):
         stats[statChange.get("stat")] = int(statChange.get("amount"))
     return stats
 
+def getNum(obj, dataType):
+
+    return dataType(obj) if obj is not None else None
+
+
 # just get function with check added for readability in code. getOrFind is for if you're searching in a particular fields properties (get) or searching for the value of the field (find)
 def getChecked(obj, dataType, name, getOrFind):
 
     if getOrFind is "find":
         if dataType is int:
-            return int(obj.find(name).text) if obj.find(name).text is not None else None
+            value = obj.findtext(name)
+            return int(value) if value is not None else None
         if dataType is float:
-            return float(obj.find(name).text) if obj.find(name).text is not None else None
+            value = obj.findtext(name)
+            return float(value) if value is not None else None
         if dataType is str:
-            return obj.find(name).text if obj.find(name).text is not None else None
+            return obj.findtext(name)
 
     if obj is None:
         return None
-    value = obj.get(name) if obj.get(name) is not None else None
-    if value is None:
-        return None
+    #This is for accessing values within the xml element
+    
     
     if getOrFind is "get":
+        value = obj.get(name) if obj.get(name) is not None else None
+        if value is None:
+            return None
         if dataType is int:
             return int(value)
         if dataType is str:
             return value
         if dataType is float:
             return float(value)
+
+def getProjectileData(obj):
+
+    projectile = obj.find("Projectile")
+    # Check for Subattack
+    subAttacksObj = obj.findall("Subattack")
+    subAttacks = []
+    if subAttacksObj is not None:
+        for subAttack in subAttacks:
+            subAttackID = getChecked(subAttack, int, "projectileId", "get")
+            numProjectiles = getChecked(subAttack, int, "NumProjectiles", "find")
+            rateOfFire = getChecked(subAttack, float, "RateOfFire", "find")
+            posOffset = getChecked(subAttack, float, "PosOffset", "find")
+
+    if projectile is None:
+        return
+    projName = projectile.findtext("ObjectId")
+    minDmg = getNum(projectile.findtext("MinDamage"), float)
+    maxDmg = getNum(projectile.findtext("MaxDamage"), float)
+    avgDmg = (minDmg + maxDmg) / 2
+    projCount = getNum(projectile.findtext("NumProjectiles"), int)
 
 def addAbility(obj):
 
@@ -86,8 +116,6 @@ def addWeapon(obj):
 
 
 for obj in root.findall("Object"):
-
-    obj.attrib.get
 
     classElement = obj.find('Class')
     objElement = classElement.text if classElement is not None else None
