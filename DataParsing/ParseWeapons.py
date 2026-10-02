@@ -68,14 +68,61 @@ def getProjectileData(obj):
             subAttackID = getChecked(subAttack, int, "projectileId", "get") #relates to Projectile ID (ID in xml in Projectile field)
             numProjectiles = getChecked(subAttack, int, "NumProjectiles", "find")
             rateOfFire = getChecked(subAttack, float, "RateOfFire", "find")
-            posOffset = getChecked(subAttack, float, "PosOffset", "find")
+            arcGap = getChecked(subAttack, float, "ArcGap", "find")
             defaultAngle = getChecked(subAttack, float, "DefaultAngle", "find")
-            
+            posOffset = getChecked(subAttack, float, "PosOffset", "find")
             #for equipment with a burst
             burstCount = getChecked(subAttack, int, "BurstCount", "find")
             burstDelay = getChecked(subAttack, float, "BurstDelay", "find")
             burstMinDelay = getChecked(subAttack, float, "BurstMinDelay", "find")
 
+        subAttack = {
+            "subAttackID" : subAttackID,
+            "numProjectiles" : numProjectiles,
+            "rateOfFire" : rateOfFire,
+            "arcGap" : arcGap,
+            "defaultAngle" : defaultAngle,
+            "posOffset" : posOffset,
+            "burstCount" : burstCount,
+            "burstDelay" : burstDelay,
+            "burstMinDelay" : burstMinDelay
+        }
+
+        subAttacks.append(subAttack)
+
+    ObjectId = getChecked(projectile, str,"ObjectId", "find")
+    Speed = getChecked(projectile, float,"Speed", "find")
+    MinDamage = getChecked(projectile, int,"MinDamage", "find")
+    MaxDamage = getChecked(projectile, int,"MaxDamage", "find")
+    LifetimeMS = getChecked(projectile, float,"LifetimeMS", "find")
+    MultiHit = getChecked(projectile, bool,"MultiHit", "find")
+    Amplitude = getChecked(projectile, float,"Amplitude", "find")
+    Frequency = getChecked(projectile, float,"Frequency", "find")
+    Size = getChecked(projectile, int,"Size", "find")
+    ArmorPiercing = getChecked(projectile, bool,"ArmorPiercing", "find")
+    PassesCover = getChecked(projectile, bool,"PassesCover", "find")
+    Parametric = getChecked(projectile, bool,"Parametric", "find")
+    FaceDir = getChecked(projectile, bool,"FaceDir", "find")
+    ConditionEffect = getChecked(projectile, str,"ConditionEffect", "find")
+    ParticleTrail = getChecked(projectile, str,"ParticleTrail", "find")
+    Acceleration = getChecked(projectile, float,"Acceleration", "find")
+    AccelerationDelay = getChecked(projectile, float,"AccelerationDelay", "find")
+    SpeedClamp = getChecked(projectile, int,"SpeedClamp", "find")
+    ProtectFromSink = getChecked(projectile, bool,"ProtectFromSink", "find")
+    DamageMultiplier = getChecked(projectile, bool,"DamageMultiplier", "find")
+    CollisionMult = getChecked(projectile, float,"CollisionMult", "find")
+    Wavy = getChecked(projectile, bool,"Wavy", "find")
+    Boomerang = getChecked(projectile, bool,"Boomerang", "find")
+    CircleTurnDelay = getChecked(projectile, int,"CircleTurnDelay", "find")
+    CircleTurnAngle = getChecked(projectile, int,"CircleTurnAngle", "find")
+    Magnitude = getChecked(projectile, float,"Magnitude", "find")
+    Damage = getChecked(projectile, int,"Damage", "find")
+    TurnRate = getChecked(projectile, int,"TurnRate", "find")
+    TurnRateDelay = getChecked(projectile, int,"TurnRateDelay", "find")
+    TurnStopTime = getChecked(projectile, int,"TurnStopTime", "find")
+    TurnAcceleration = getChecked(projectile, float,"TurnAcceleration", "find")
+    TurnAccelerationDelay = getChecked(projectile, int,"TurnAccelerationDelay", "find")
+    TurnClamp = getChecked(projectile, int,"TurnClamp", "find")
 
 
     if projectile is None:

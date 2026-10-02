@@ -6,7 +6,7 @@ filename = "exalt-extractor/output/xml/equip.xml"
 tree = ET.parse(filename)
 root = tree.getroot()
 
-subAttackFields = {}
+testObjFields = {}
 
 def getType(obj):
 
@@ -25,22 +25,26 @@ def getType(obj):
 
 
 for obj in root.findall("Object"):
-    subAttacks = obj.findall("Subattack")
+    testObj = obj.findall("Projectile")
 
-    for subAttack in subAttacks:
-        if subAttack is None:
+    for testField in testObj:
+        if testField is None:
             continue
 
-        for element in subAttack:
+        for element in testField:
             dataType = getType(element)
             field = element.tag
-            if dataType == int and subAttackFields.get(field) == float:
+            if dataType == int and testObjFields.get(field) == float:
                 continue
                 
 
+            elementType = getType(element)
+            testObjFields.update({element.tag : elementType})
 
-            subAttackFields.update({element.tag : getType(element) })
+x = 0
+for field, fieldType in testObjFields.items():
+    print(fieldType.__name__ if fieldType is not None else type(True).__name__)
+#    print(field)
 
 
-for field, fieldType in subAttackFields.items():
-    print(field, fieldType.__name__)
+# , fieldType.__name__ if fieldType is not None else True
