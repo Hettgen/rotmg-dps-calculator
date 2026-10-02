@@ -31,14 +31,15 @@ def getNum(obj, dataType):
 def getChecked(obj, dataType, name, getOrFind):
 
     if getOrFind is "find":
+        value = obj.findtext(name)
+        if value is None:
+            return None
         if dataType is int:
-            value = obj.findtext(name)
-            return int(value) if value is not None else None
+            return int(value)
         if dataType is float:
-            value = obj.findtext(name)
-            return float(value) if value is not None else None
+            return float(value)
         if dataType is str:
-            return obj.findtext(name)
+            value
 
     if obj is None:
         return None
@@ -64,10 +65,18 @@ def getProjectileData(obj):
     subAttacks = []
     if subAttacksObj is not None:
         for subAttack in subAttacks:
-            subAttackID = getChecked(subAttack, int, "projectileId", "get")
+            subAttackID = getChecked(subAttack, int, "projectileId", "get") #relates to Projectile ID (ID in xml in Projectile field)
             numProjectiles = getChecked(subAttack, int, "NumProjectiles", "find")
             rateOfFire = getChecked(subAttack, float, "RateOfFire", "find")
             posOffset = getChecked(subAttack, float, "PosOffset", "find")
+            defaultAngle = getChecked(subAttack, float, "DefaultAngle", "find")
+            
+            #for equipment with a burst
+            burstCount = getChecked(subAttack, int, "BurstCount", "find")
+            burstDelay = getChecked(subAttack, float, "BurstDelay", "find")
+            burstMinDelay = getChecked(subAttack, float, "BurstMinDelay", "find")
+
+
 
     if projectile is None:
         return
